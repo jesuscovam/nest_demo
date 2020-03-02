@@ -6,6 +6,7 @@ import { CreatePaloDto } from './dto/create-palo-dto';
 @Injectable()
 export class PalosService {
     private palos: Palo[] = [];
+
     createPalo(createPaloDto: CreatePaloDto): Palo {
         const { title, description } = createPaloDto;
         const palo: Palo = {
@@ -20,5 +21,19 @@ export class PalosService {
 
     getAllPalos(): Palo[]{
         return this.palos;
+    }
+
+    getPaloById(id: string): Palo {
+        return this.palos.find(palo => palo.id === id);
+    }
+
+    deletePalo(id: string): void {
+        this.palos = this.palos.filter(palo => palo.id !== id);
+    }
+
+    updatePaloStatus(id:string, status: PaloStatus): Palo {
+        const palo = this.getPaloById(id);
+        palo.status = status;
+        return palo;
     }
 }

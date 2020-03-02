@@ -7,6 +7,6 @@ export interface Palo {
 
 export enum PaloStatus{
     OPEN = 'OPEN',
-    IN_PROGRESS = "IN_PROGRESS",
-    DONE = "DONE"
+    IN_PROGRESS = 'IN_PROGRESS',
+    DONE = 'DONE'
 }
