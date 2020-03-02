@@ -1,7 +1,8 @@
-import { Controller, Post, Body, Get, Param, Delete, Patch } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Delete, Patch, Query } from '@nestjs/common';
 import { PalosService } from './palos.service';
 import { CreatePaloDto } from './dto/create-palo-dto';
 import { Palo, PaloStatus } from './palos.model';
+import { GetPalosFilterDto } from './dto/get-palos-filter-dto';
 
 @Controller('palos')
 export class PalosController {
@@ -15,8 +16,12 @@ export class PalosController {
     }
 
     @Get()
-    getAllPalos(): Palo[] {
+    getAllPalos(@Query() paloFilterDto: GetPalosFilterDto ): Palo[] {
+        if (Object.keys(paloFilterDto).length){
+            return this.palosServices.getPalosWithFilter(paloFilterDto);
+        } else {        
         return this.palosServices.getAllPalos();
+        }
     }
 
     @Get('/:id')

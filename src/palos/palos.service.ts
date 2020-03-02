@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Palo, PaloStatus } from './palos.model';
 import * as uuid from 'uuid/v1';
 import { CreatePaloDto } from './dto/create-palo-dto';
+import { GetPalosFilterDto } from './dto/get-palos-filter-dto';
 
 @Injectable()
 export class PalosService {
@@ -20,7 +21,23 @@ export class PalosService {
     }
 
     getAllPalos(): Palo[]{
-        return this.palos;
+      return this.palos;
+    }
+
+    getPalosWithFilter(getPalosFilterDto: GetPalosFilterDto): Palo[] {
+        const {status, search} = getPalosFilterDto;
+        const palos = this.palos;
+        if(status){
+            palos.filter(palo => palo.status === status);
+        }
+
+        if(search){
+            palos.filter(palo =>
+                palo.title.includes(search) ||
+                palo.description.includes(search)    
+            );
+        }
+        return palos;
     }
 
     getPaloById(id: string): Palo {
