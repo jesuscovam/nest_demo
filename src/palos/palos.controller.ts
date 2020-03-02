@@ -1,7 +1,7 @@
-import { Controller, Post, Body, Get, Param, Delete } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Delete, Patch } from '@nestjs/common';
 import { PalosService } from './palos.service';
 import { CreatePaloDto } from './dto/create-palo-dto';
-import { Palo } from './palos.model';
+import { Palo, PaloStatus } from './palos.model';
 
 @Controller('palos')
 export class PalosController {
@@ -27,5 +27,13 @@ export class PalosController {
     @Delete('/:id')
     deletePalo(@Param('id') id: string): void {
         return this.palosServices.deletePalo(id);
+    }
+
+    @Patch('/:id/status')
+    updatePaloStatus(
+        @Param('id') id: string,
+        @Body() status: PaloStatus,
+    ): Palo {
+        return this.palosServices.updatePaloStatus(id, status);
     }
 }
