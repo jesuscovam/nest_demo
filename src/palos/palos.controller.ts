@@ -16,12 +16,11 @@ export class PalosController {
     }
 
     @Get()
-    getAllPalos(@Query() paloFilterDto: GetPalosFilterDto ): Palo[] {
+    getPalos(@Query() paloFilterDto: GetPalosFilterDto): Palo[] {
         if (Object.keys(paloFilterDto).length){
             return this.palosServices.getPalosWithFilter(paloFilterDto);
-        } else {        
-        return this.palosServices.getAllPalos();
         }
+        return this.palosServices.getAllPalos();
     }
 
     @Get('/:id')

@@ -24,19 +24,39 @@ export class PalosService {
       return this.palos;
     }
 
-    getPalosWithFilter(getPalosFilterDto: GetPalosFilterDto): Palo[] {
-        const {status, search} = getPalosFilterDto;
-        const palos = this.palos;
+    //I need an event that can handle a dto with query parameters to filter my models and 
+    // retrieve an array of matches
+    // for the sake of applying the filters on the same a array, Im going to return not 
+    // the reference of my models, but an asign copy so I allow javascript to appy
+    // both filters on the same array
+
+    getPalosWithFilter(palosFilterDto: GetPalosFilterDto): Palo[]{
+        const { status, search } = palosFilterDto;
+        let palos = this.palos;
+
         if(status){
-            palos.filter(palo => palo.status === status);
+            palos = palos.filter(palo => palo.status === status);
+        }
+        
+        if(search){
+            palos = palos.filter(palo =>
+                palo.title.includes(search) ||
+                palo.description.includes(search)
+            )
         }
 
-        if(search){
-            palos.filter(palo =>
-                palo.title.includes(search) ||
-                palo.description.includes(search)    
-            );
-        }
+        /*
+            Same would be true if we also deconstructed
+            the dto with a float value like
+            priceRange
+
+            if(priceRange){
+                palos.filter(palo =>
+                    palo.price => priceRange.min &&
+                    palo.price <= priceRange.max)
+                )
+            }
+        */
         return palos;
     }
 
