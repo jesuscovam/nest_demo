@@ -17,4 +17,8 @@ export class PalosService {
         this.palos.push(palo);
         return palo;
     }
+
+    getAllPalos(): Palo[]{
+        return this.palos;
+    }
 }

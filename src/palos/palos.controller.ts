@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Get } from '@nestjs/common';
 import { PalosService } from './palos.service';
 import { CreatePaloDto } from './dto/create-palo-dto';
 import { Palo } from './palos.model';
@@ -12,5 +12,10 @@ export class PalosController {
         @Body() createPaloDto: CreatePaloDto
     ): Palo {
         return this.palosServices.createPalo(createPaloDto);
+    }
+
+    @Get()
+    getAllPalos(): Palo[] {
+        return this.palosServices.getAllPalos();
     }
 }
