@@ -1,4 +1,4 @@
-import { PipeTransform } from "@nestjs/common";
+import { PipeTransform, BadRequestException } from "@nestjs/common";
 import { TaskStatus } from "../task.module";
 
 export class TaskValidationPipe implements PipeTransform{
@@ -9,7 +9,9 @@ export class TaskValidationPipe implements PipeTransform{
     ];
     transform(value: any) {
         value = value
-
+        if (!this.isStatusValid(value)){
+            throw new BadRequestException()
+        }
         return value;
     }
     private isStatusValid(status: any){
