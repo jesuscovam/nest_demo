@@ -50,4 +50,9 @@ export class CoinsService {
             return found;
         }
     }
+
+    deleteCoin(id: string): void {
+        const found = this.getCoinById(id);
+        this.coins.filter(coin => coin.id !== found.id);
+    }
 }
