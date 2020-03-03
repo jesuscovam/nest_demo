@@ -1,4 +1,4 @@
-import { Controller, Post, UsePipes, ValidationPipe, Get, Query, Param, Delete, Patch } from '@nestjs/common';
+import { Controller, Post, UsePipes, ValidationPipe, Get, Query, Param, Delete, Patch, Body } from '@nestjs/common';
 import { CoinsService } from './coins.service';
 import { CreateCoinDto } from './dtos/create-coin-dto';
 import { Coin, CoinStatus } from './coin.model';
@@ -11,7 +11,7 @@ export class CoinsController {
 
     @Post()
     @UsePipes(ValidationPipe)
-    createCoin(createCoin: CreateCoinDto): Coin{
+    createCoin(@Body() createCoin: CreateCoinDto): Coin{
         return this.coinService.createCoin(createCoin);
     }
 
@@ -37,7 +37,7 @@ export class CoinsController {
     @Patch('/:id/status')
     updateCoinStatus(
         @Param('id') id: string,
-        @Query('status', CoinValidationPipe) status: CoinStatus): Coin {
+        @Body('status', CoinValidationPipe) status: CoinStatus): Coin {
         return this.coinService.updateCoinStatus(id, status);
     }
 }
