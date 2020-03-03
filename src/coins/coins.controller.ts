@@ -1,8 +1,9 @@
-import { Controller, Post, UsePipes, ValidationPipe, Get, Query, Param, Delete } from '@nestjs/common';
+import { Controller, Post, UsePipes, ValidationPipe, Get, Query, Param, Delete, Patch } from '@nestjs/common';
 import { CoinsService } from './coins.service';
 import { CreateCoinDto } from './dtos/create-coin-dto';
-import { Coin } from './coin.model';
+import { Coin, CoinStatus } from './coin.model';
 import { CoinsWithFilterDto } from './dtos/coins-with-filter-dto';
+import { CoinValidationPipe } from './pipes/coins-transform-pipe';
 
 @Controller('coins')
 export class CoinsController {
@@ -31,5 +32,12 @@ export class CoinsController {
     @Delete('/:id')
     deleteCoin(@Param('id') id:string): void {
         this.coinService.deleteCoin(id);
+    }
+
+    @Patch('/:id/status')
+    updateCoinStatus(
+        @Param('id') id: string,
+        @Query('status', CoinValidationPipe) status: CoinStatus): Coin {
+        return this.coinService.updateCoinStatus(id, status);
     }
 }

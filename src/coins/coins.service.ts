@@ -55,4 +55,10 @@ export class CoinsService {
         const found = this.getCoinById(id);
         this.coins.filter(coin => coin.id !== found.id);
     }
+
+    updateCoinStatus(id: string, status: CoinStatus): Coin {
+        const found = this.getCoinById(id);
+        found.status = status;
+        return found;
+    }
 }
