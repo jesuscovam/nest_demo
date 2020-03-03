@@ -1,4 +1,4 @@
-import { Controller, Post, UsePipes, ValidationPipe, Get, Query, Param } from '@nestjs/common';
+import { Controller, Post, UsePipes, ValidationPipe, Get, Query, Param, Delete } from '@nestjs/common';
 import { CoinsService } from './coins.service';
 import { CreateCoinDto } from './dtos/create-coin-dto';
 import { Coin } from './coin.model';
@@ -26,5 +26,10 @@ export class CoinsController {
     @Get('/:id')
     getCoinById(@Param('id') id: string): Coin {
         return this.coinService.getCoinById(id);
+    }
+
+    @Delete('/:id')
+    deleteCoin(@Param('id') id:string): void {
+        this.coinService.deleteCoin(id);
     }
 }
