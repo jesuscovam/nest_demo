@@ -13,30 +13,10 @@ export class TasksService {
         private taskRepository: TaskRepository
     ){}
 
-    getTasks(filterDto: GetTaskFilterDto){
+    async getTasks(filterDto: GetTaskFilterDto): Promise<Task[]> {
         return this.taskRepository.getTasks(filterDto);
     }
 
-//     getAllTasks(): Task[] {
-//         return this.tasks;
-//     }
-
-//     getTaskWithFilters(taskFilterDto: GetTaskFilterDto): Task[] {
-//         const {status, search} = taskFilterDto;
-//         const tasks = this.getAllTasks();
-
-//         if (status){
-//             tasks.filter(task => task.status === status);
-//         }
-
-//         if (search){
-//             tasks.filter(task =>
-//                 task.description.includes(search) ||
-//                 task.title.includes(search)    
-//             )
-//         }
-//         return tasks;
-//     }
 
     async getTaskById(id: number): Promise<Task> {
             const found = await this.taskRepository.findOne(id);
