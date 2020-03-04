@@ -48,9 +48,12 @@ async createTask(createTaskDto: CreateTaskDto): Promise<Task>{
     return this.taskRepository.createTask(createTaskDto);
 }
 
-async deleteTask(id: number): Promise<DeleteResult> {
-    const found = await this.getTaskById(id);
-    return this.taskRepository.delete(found.id)
+async deleteTask(id: number): Promise<void> {
+    const task = await this.taskRepository.delete(id);
+    if(task.affected === 0){
+        throw new BadRequestException(`"${id}" is an invalidad id`)
+    }
+
 }
 //     deleteTask(id: string): void {
 //       const found = this.getTaskById(id);
