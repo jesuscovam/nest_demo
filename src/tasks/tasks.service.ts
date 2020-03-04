@@ -3,6 +3,7 @@ import { TaskRepository } from './task.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Task } from './task.entity';
 import { CreateTaskDto } from './dto/create-task.dto';
+import { TaskStatus } from './task-status.enum';
 
 //import { TaskStatus } from './task-status.enum';
 
@@ -56,6 +57,12 @@ async deleteTask(id: number): Promise<void> {
 
 }
 
+async updateTaskStatus(id: number, status: TaskStatus): Promise<Task> {
+    const task = await this.getTaskById(id)
+    task.status = status;
+    task.save();
+    return task
+}
 //     updateTaskStatus(id: string, status: TaskStatus): Task {
 //         const task = this.getTaskById(id);
 //         task.status = status;
