@@ -3,7 +3,7 @@ import { TaskRepository } from './task.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Task } from './task.entity';
 import { CreateTaskDto } from './dto/create-task.dto';
-import { DeleteResult } from 'typeorm';
+
 //import { TaskStatus } from './task-status.enum';
 
 @Injectable()
@@ -55,11 +55,6 @@ async deleteTask(id: number): Promise<void> {
     }
 
 }
-//     deleteTask(id: string): void {
-//       const found = this.getTaskById(id);
-//       this.tasks = this.tasks.filter(task => task.id !== found.id);
-//     }
-    
 
 //     updateTaskStatus(id: string, status: TaskStatus): Task {
 //         const task = this.getTaskById(id);

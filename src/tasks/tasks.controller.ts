@@ -2,7 +2,6 @@ import { Controller, Get, Param, ParseIntPipe, Body, Post, UsePipes, ValidationP
 import { TasksService } from './tasks.service';
 import { Task } from './task.entity';
 import { CreateTaskDto } from './dto/create-task.dto';
-import { DeleteResult } from 'typeorm';
 
 
 @Controller('tasks')
