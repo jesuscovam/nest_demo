@@ -1,6 +1,7 @@
-import { Controller, Get, Param, ParseIntPipe,  } from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe, Body, Post, UsePipes, ValidationPipe,  } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { Task } from './task.entity';
+import { CreateTaskDto } from './dto/create-task.dto';
 
 
 @Controller('tasks')
@@ -21,11 +22,11 @@ export class TasksController {
         return this.taskServices.getTaskById(id);
     }
 
-    // @Post()
-    // @UsePipes(ValidationPipe)
-    // createTask(@Body() createTaskDto: CreateTaskDto): Task {
-    //     return this.taskServices.createTasks(createTaskDto);
-    // }
+    @Post()
+    @UsePipes(ValidationPipe)
+    createTask(@Body() createTaskDto: CreateTaskDto): Promise<Task> {
+        return this.taskServices.createTask(createTaskDto);
+    }
 
     // @Delete('/:id')
     // deleteTaskById(@Param('id') id: string): void{
