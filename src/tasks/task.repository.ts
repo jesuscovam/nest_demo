@@ -8,8 +8,16 @@ import { GetTaskFilterDto } from "./dto/get-task-filter.dto";
 export class TaskRepository extends Repository<Task>{
     async getTasks(filterDto: GetTaskFilterDto): Promise<Task[]>{
         const { search, status } = filterDto;
-        const tasks = await this.createQueryBuilder('task');
-        return tasks.getMany();
+        const query = await this.createQueryBuilder('task');
+
+        if(status){
+            await query.andWhere('task.status = :status', { status });
+        }
+        if(search){
+
+        }
+        const tasks = await query.getMany();
+        return tasks;
     }
 
     async createTask(createTaskDto: CreateTaskDto): Promise<Task>{
